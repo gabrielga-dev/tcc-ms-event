@@ -1,4 +1,4 @@
-package br.com.events.event.event.infrastructure.feign;
+package br.com.events.event.event.infrastructure.feign.countryStateCity;
 
 import java.util.List;
 

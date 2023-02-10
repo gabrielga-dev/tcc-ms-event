@@ -40,12 +40,12 @@ public class AddressCreateEventRestForm {
 
     @NotNull(message = "O campo do nome do estado não pode ser nulo.")
     @NotBlank(message = "O campo do nome do estado não pode estar vazio.")
-    @Size(min = 3, max = 50, message = "O campo do nome do estado deve conter, pelo menos, 3 caracteres e no máximo 50.")
+    @Size(min = 2, max = 2, message = "O campo do nome do estado deve conter 2 caracteres.")
     private String state;
 
     @NotNull(message = "O campo do nome do país não pode ser nulo.")
     @NotBlank(message = "O campo do nome do país não pode estar vazio.")
-    @Size(min = 3, max = 100, message = "O campo do nome do país deve conter, pelo menos, 3 caracteres e no máximo 50.")
+    @Size(min = 2, max = 2, message = "O campo do nome do país deve conter 2 caracteres.")
     private String country;
 
     @NotNull(message = "O campo do CEP não pode ser nulo.")

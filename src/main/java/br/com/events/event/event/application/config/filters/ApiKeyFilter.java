@@ -4,19 +4,20 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.events.event.event.application.config.filters.exception.InvalidApiKeyException;
 import br.com.events.event.event.application.config.filters.exception.NoApiKeyReceivedException;
+import br.com.events.event.event.util.FilteredRoutesUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -28,7 +29,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Order(1)
 @Component
-public class ApiKeyFilter implements Filter {
+@RequiredArgsConstructor
+public class ApiKeyFilter extends OncePerRequestFilter {
 
     @Value("${valid.api.keys}")
     private List<String> validApiKeys;
@@ -36,13 +38,19 @@ public class ApiKeyFilter implements Filter {
     @Value("${api.key.header}")
     private String apiKeyHeader;
 
+    private final FilteredRoutesUtil filteredRoutesUtil;
+
     @Override
-    public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
+    protected boolean shouldNotFilter(final HttpServletRequest request) {
+        var path = request.getRequestURI();
+        return filteredRoutesUtil.isRouteNotProtected(path);
+    }
+
+    @Override
+    public void doFilterInternal(HttpServletRequest httpRequest, HttpServletResponse response, FilterChain filterChain)
         throws IOException, ServletException {
 
         log.info("Filtering by api-key");
-
-        var httpRequest = (HttpServletRequest) request;
 
         var apiKey = Optional.ofNullable(httpRequest.getHeader(apiKeyHeader))
             .orElseThrow(NoApiKeyReceivedException::new);
@@ -51,6 +59,6 @@ public class ApiKeyFilter implements Filter {
             throw new InvalidApiKeyException();
         }
 
-        chain.doFilter(request, response);
+        filterChain.doFilter(httpRequest, response);
     }
 }

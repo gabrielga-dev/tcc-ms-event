@@ -30,7 +30,6 @@ public class CreateEventRestForm {
     private String description;
 
     @NotNull(message = "O campo de data do evento não pode ser nulo.")
-    @NotBlank(message = "O campo de data do evento não pode estar vazio.")
     private Long dateTimestamp;
 
     @Valid

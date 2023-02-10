@@ -3,19 +3,19 @@ package br.com.events.event.event.application.config.filters;
 import java.io.IOException;
 import java.util.Objects;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.events.event.event.application.config.filters.exception.NoTokenReceivedException;
 import br.com.events.event.event.infrastructure.feign.msAuth.PersonMsAuthFeignClient;
+import br.com.events.event.event.util.FilteredRoutesUtil;
 import br.com.events.event.event.util.helpers.MySecurityContextHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,17 +29,23 @@ import lombok.extern.slf4j.Slf4j;
 @Order(2)
 @Configuration
 @RequiredArgsConstructor
-public class JwtTokenFilter implements Filter {
+public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final PersonMsAuthFeignClient personMsAuthFeignClient;
 
+    private final FilteredRoutesUtil filteredRoutesUtil;
+
     @Override
-    public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
+    protected boolean shouldNotFilter(final HttpServletRequest request) {
+        var path = request.getRequestURI();
+        return filteredRoutesUtil.isRouteNotProtected(path);
+    }
+
+    @Override
+    public void doFilterInternal(HttpServletRequest httpRequest, HttpServletResponse response, FilterChain filterChain)
         throws IOException, ServletException {
 
         log.info("Filtering by jwt token");
-
-        var httpRequest = (HttpServletRequest) request;
 
         var token = extractToken(httpRequest);
 
@@ -51,7 +57,7 @@ public class JwtTokenFilter implements Filter {
         log.info("Setting up security context: {}", person);
         MySecurityContextHolder.setContext(token, person);
 
-        chain.doFilter(request, response);
+        filterChain.doFilter(httpRequest, response);
     }
 
     private String extractToken(HttpServletRequest request) {

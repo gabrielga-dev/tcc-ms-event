@@ -8,7 +8,6 @@ import br.com.events.event.event.domain.mapper.event.CreateEventMapper;
 import br.com.events.event.event.domain.repository.EventRepository;
 import br.com.events.event.event.infrastructure.useCase.event.CreateEventUseCase;
 import br.com.events.event.event.infrastructure.validation.event.create.CreateEventValidator;
-import br.com.events.event.event.util.helpers.MySecurityContextHolder;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -26,15 +25,12 @@ public class CreateEventUseCaseImpl implements CreateEventUseCase {
 
     @Override
     public CreateEventUseCaseResult execute(final CreateEventUseCaseForm form) {
-        createEventValidator.validate(form);//todo verificar api-key da api de locais
+        createEventValidator.validate(form);
 
         var toSave = CreateEventMapper.toEntity(form);
-        toSave.setOwnerUuid(MySecurityContextHolder.getAuthenticatedPerson().getUuid());
 
         var saved = eventRepository.save(toSave);
-        //todo continuar a popular o objeto de evento
-        //todo implementar exception handler (nromal e de feign)
 
-        return null;
+        return CreateEventMapper.toUseCaseResult(saved);
     }
 }

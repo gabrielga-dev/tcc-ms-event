@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -21,7 +22,8 @@ import lombok.RequiredArgsConstructor;
  *
  * @author Gabriel Guimarães de Almeida
  */
-@RestController("/v1/event")
+@RestController
+@RequestMapping("/v1/event")
 @RequiredArgsConstructor
 public class EventControllerV1 implements EventControllerV1Doc {
 

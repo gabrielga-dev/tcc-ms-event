@@ -11,6 +11,7 @@ import br.com.events.event.event.domain.io.event.create.useCase.out.CreateEventU
 import br.com.events.event.event.domain.model.Address;
 import br.com.events.event.event.domain.model.Event;
 import br.com.events.event.event.util.helpers.DateHelper;
+import br.com.events.event.event.util.helpers.MySecurityContextHolder;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -91,8 +92,8 @@ public final class CreateEventMapper {
         toReturn.setName(form.getName());
         toReturn.setDescription(form.getDescription());
         toReturn.setDate(form.getDate());
-        toReturn.setCreationDate(LocalDateTime.now()
-        );
+        toReturn.setCreationDate(LocalDateTime.now());
+        toReturn.setOwnerUuid(MySecurityContextHolder.getAuthenticatedPerson().getUuid());
         var address = toEntity(form.getAddress());
         address.setEventUuid(toReturn.getUuid());
         address.setEvent(toReturn);
@@ -119,5 +120,22 @@ public final class CreateEventMapper {
         toReturn.setLongitude(form.getLongitude());
 
         return toReturn;
+    }
+
+    /**
+     * This method maps a {@link Event} into a {@link CreateEventUseCaseResult} object
+     *
+     * @param saved {@link Event} object with the data to be mapped
+     * @return {@link CreateEventUseCaseResult} object with the mapped information
+     */
+    public static CreateEventUseCaseResult toUseCaseResult(final Event saved) {
+
+        return CreateEventUseCaseResult
+            .builder()
+            .uuid(saved.getUuid())
+            .name(saved.getName())
+            .description(saved.getDescription())
+            .date(saved.getDate())
+            .build();
     }
 }

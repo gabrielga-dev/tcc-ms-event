@@ -3,7 +3,7 @@ package br.com.events.event.event.application.config.feign;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 
-import br.com.events.event.event.infrastructure.feign.CountryStateCityFeignClient;
+import br.com.events.event.event.infrastructure.feign.countryStateCity.CountryStateCityFeignClient;
 import feign.RequestInterceptor;
 
 /**
@@ -11,7 +11,7 @@ import feign.RequestInterceptor;
  *
  * @author Gabriel Guimarães de Almeida
  */
-public class CountryStateCityFeignClientConfiguration {
+public class CountryStateCityFeignClientConfiguration extends BaseFeignClientConfig{
 
     @Value("${feign.client.country.state.city.header.name}")
     private String headerName;

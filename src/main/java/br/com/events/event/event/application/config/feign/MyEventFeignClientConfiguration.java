@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import feign.RequestInterceptor;
 
 
-public class MyEventFeignClientConfiguration {
+public class MyEventFeignClientConfiguration extends BaseFeignClientConfig{
 
     @Value("${api.key.header}")
     private String apiKeyHeaderName;

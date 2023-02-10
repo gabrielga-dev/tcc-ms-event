@@ -3,7 +3,6 @@ package br.com.events.event.event.util.helpers;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.TimeZone;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -25,11 +24,10 @@ public final class DateHelper {
      * @return {@link LocalDateTime} object that represents the equivalent date
      */
     public static LocalDateTime timestampToLocalDateTime(Long timestamp) {
-        return LocalDateTime
-            .ofInstant(
-                Instant.ofEpochMilli(timestamp),
-                TimeZone.getDefault().toZoneId()
-            );
+        return Instant
+            .ofEpochMilli(timestamp)
+            .atZone(ZoneId.of(ZONE_ID))
+            .toLocalDateTime();
     }
 
     /**
