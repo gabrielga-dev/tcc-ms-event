@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.events.event.event.domain.model.Address;
@@ -17,7 +18,8 @@ import br.com.events.event.event.domain.model.pk.EventServicePk;
 import br.com.events.event.event.domain.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
 
-@RestController("/")
+@RestController
+@RequestMapping("/test")
 @RequiredArgsConstructor
 public class Test {
 
