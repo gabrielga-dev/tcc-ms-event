@@ -16,6 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.events.event.event.application.config.filters.exception.InvalidApiKeyException;
 import br.com.events.event.event.application.config.filters.exception.NoApiKeyReceivedException;
+import br.com.events.event.event.util.FilterExceptionUtil;
 import br.com.events.event.event.util.FilteredRoutesUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,7 @@ public class ApiKeyFilter extends OncePerRequestFilter {
     private String apiKeyHeader;
 
     private final FilteredRoutesUtil filteredRoutesUtil;
+    private final FilterExceptionUtil filterExceptionUtil;
 
     @Override
     protected boolean shouldNotFilter(final HttpServletRequest request) {
@@ -52,13 +54,16 @@ public class ApiKeyFilter extends OncePerRequestFilter {
 
         log.info("Filtering by api-key");
 
-        var apiKey = Optional.ofNullable(httpRequest.getHeader(apiKeyHeader))
-            .orElseThrow(NoApiKeyReceivedException::new);
+        var apiKeyOpt = Optional.ofNullable(httpRequest.getHeader(apiKeyHeader));
 
-        if (!validApiKeys.contains(apiKey)) {
-            throw new InvalidApiKeyException();
+        if (apiKeyOpt.isPresent()){
+            if (validApiKeys.contains(apiKeyOpt.get())) {
+                filterChain.doFilter(httpRequest, response);
+            } else {
+                filterExceptionUtil.setResponseError(response, new InvalidApiKeyException());
+            }
+        } else {
+            filterExceptionUtil.setResponseError(response, new NoApiKeyReceivedException());
         }
-
-        filterChain.doFilter(httpRequest, response);
     }
 }

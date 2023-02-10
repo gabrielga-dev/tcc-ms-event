@@ -31,7 +31,16 @@ public class FeignErrorDecoder implements ErrorDecoder {
             var objectMapper = new ObjectMapper()
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-            return objectMapper.readValue(bodyIs, BusinessException.class);
+            var bodyError = objectMapper.readValue(
+                bodyIs.readAllBytes(), BusinessException.BusinessExceptionBody.class
+            );
+
+            return new BusinessException(
+                HttpStatus.valueOf(bodyError.getCode()),
+                bodyError.getCode(),
+                bodyError.getMessage(),
+                bodyError.getDescription()
+            );
         } catch (IOException e) {
             log.error(
                 "Error mapping feign error at {} {}. {}",
@@ -43,7 +52,7 @@ public class FeignErrorDecoder implements ErrorDecoder {
             return new BusinessException(
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                "Erro ao tentar ler mensagemd e falha dos servidores.",
+                "Erro ao tentar ler mensagem de falha dos servidores.",
                 "A chamada a um dos nossos servidores falhou e o motivo ainda não foi mapeado."
             );
         }

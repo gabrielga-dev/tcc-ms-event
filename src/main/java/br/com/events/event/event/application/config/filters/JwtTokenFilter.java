@@ -14,7 +14,9 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.events.event.event.application.config.filters.exception.NoTokenReceivedException;
+import br.com.events.event.event.infrastructure.exception.BusinessException;
 import br.com.events.event.event.infrastructure.feign.msAuth.PersonMsAuthFeignClient;
+import br.com.events.event.event.util.FilterExceptionUtil;
 import br.com.events.event.event.util.FilteredRoutesUtil;
 import br.com.events.event.event.util.helpers.MySecurityContextHolder;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private final PersonMsAuthFeignClient personMsAuthFeignClient;
 
     private final FilteredRoutesUtil filteredRoutesUtil;
+    private final FilterExceptionUtil filterExceptionUtil;
 
     @Override
     protected boolean shouldNotFilter(final HttpServletRequest request) {
@@ -49,15 +52,19 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         var token = extractToken(httpRequest);
 
-        var person = Objects.requireNonNull(
-            personMsAuthFeignClient.getAuthenticatedPersonInformation("Bearer " + token)
-                .getBody()
-        );
+        try{
+            var person = Objects.requireNonNull(
+                personMsAuthFeignClient.getAuthenticatedPersonInformation("Bearer " + token)
+                    .getBody()
+            );
 
-        log.info("Setting up security context: {}", person);
-        MySecurityContextHolder.setContext(token, person);
+            log.info("Setting up security context: {}", person);
+            MySecurityContextHolder.setContext(token, person);
 
-        filterChain.doFilter(httpRequest, response);
+            filterChain.doFilter(httpRequest, response);
+        } catch (BusinessException be){
+            filterExceptionUtil.setResponseError(response, be);
+        }
     }
 
     private String extractToken(HttpServletRequest request) {
