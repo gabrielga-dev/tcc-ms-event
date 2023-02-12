@@ -9,16 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.events.event.event.application.config.filters.exception.NoTokenReceivedException;
+import br.com.events.event.event.domain.io.feign.msAuth.person.getAuthenticatedPerson.out.GetAuthenticatedPersonInformationResult;
+import br.com.events.event.event.domain.mapper.auth.AuthenticatedPersonMapper;
 import br.com.events.event.event.infrastructure.exception.BusinessException;
 import br.com.events.event.event.infrastructure.feign.msAuth.PersonMsAuthFeignClient;
 import br.com.events.event.event.util.FilterExceptionUtil;
-import br.com.events.event.event.util.FilteredRoutesUtil;
-import br.com.events.event.event.util.helpers.MySecurityContextHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,29 +29,26 @@ import lombok.extern.slf4j.Slf4j;
  * @author Gabriel Guimarães de Almeida
  */
 @Slf4j
-@Order(2)
 @Configuration
 @RequiredArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final PersonMsAuthFeignClient personMsAuthFeignClient;
-
-    private final FilteredRoutesUtil filteredRoutesUtil;
     private final FilterExceptionUtil filterExceptionUtil;
 
     @Override
-    protected boolean shouldNotFilter(final HttpServletRequest request) {
-        var path = request.getRequestURI();
-        return filteredRoutesUtil.isRouteNotProtected(path);
-    }
-
-    @Override
-    public void doFilterInternal(HttpServletRequest httpRequest, HttpServletResponse response, FilterChain filterChain)
+    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws IOException, ServletException {
-
         log.info("Filtering by jwt token");
 
-        var token = extractToken(httpRequest);
+        var token = request.getHeader("Authorization");
+
+        if (Objects.isNull(token) || !token.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        token = extractToken(token);
 
         try{
             var person = Objects.requireNonNull(
@@ -59,16 +57,24 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             );
 
             log.info("Setting up security context: {}", person);
-            MySecurityContextHolder.setContext(token, person);
+            authenticate(person);
 
-            filterChain.doFilter(httpRequest, response);
+            filterChain.doFilter(request, response);
         } catch (BusinessException be){
             filterExceptionUtil.setResponseError(response, be);
         }
     }
 
-    private String extractToken(HttpServletRequest request) {
-        String token = request.getHeader("Authorization");
+    private void authenticate(final GetAuthenticatedPersonInformationResult person) {
+        var mappedPerson = AuthenticatedPersonMapper.convertToAuthenticatedPerson(person);
+        var authentication = new UsernamePasswordAuthenticationToken(
+            mappedPerson,
+            null,
+            mappedPerson.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    private String extractToken(String token) {
         if (ObjectUtils.isEmpty(token) || !token.startsWith("Bearer ")) {
             throw new NoTokenReceivedException();
         }

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -28,7 +27,6 @@ import lombok.extern.slf4j.Slf4j;
  * @author Gabriel Guimarães de Almeida
  */
 @Slf4j
-@Order(1)
 @Component
 @RequiredArgsConstructor
 public class ApiKeyFilter extends OncePerRequestFilter {
