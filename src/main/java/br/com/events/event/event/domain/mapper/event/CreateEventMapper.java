@@ -2,6 +2,9 @@ package br.com.events.event.event.domain.mapper.event;
 
 import java.time.LocalDateTime;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import br.com.events.event.event.domain.io.auth.AuthenticatedPerson;
 import br.com.events.event.event.domain.io.event.create.rest.in.AddressCreateEventRestForm;
 import br.com.events.event.event.domain.io.event.create.rest.in.CreateEventRestForm;
 import br.com.events.event.event.domain.io.event.create.rest.out.CreateEventRestResult;
@@ -11,7 +14,6 @@ import br.com.events.event.event.domain.io.event.create.useCase.out.CreateEventU
 import br.com.events.event.event.domain.model.Address;
 import br.com.events.event.event.domain.model.Event;
 import br.com.events.event.event.util.helpers.DateHelper;
-import br.com.events.event.event.util.helpers.MySecurityContextHolder;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -93,7 +95,10 @@ public final class CreateEventMapper {
         toReturn.setDescription(form.getDescription());
         toReturn.setDate(form.getDate());
         toReturn.setCreationDate(LocalDateTime.now());
-        toReturn.setOwnerUuid(MySecurityContextHolder.getAuthenticatedPerson().getUuid());
+
+        var authenticated = (AuthenticatedPerson)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        toReturn.setOwnerUuid(authenticated.getUuid());
+
         var address = toEntity(form.getAddress());
         address.setEventUuid(toReturn.getUuid());
         address.setEvent(toReturn);
