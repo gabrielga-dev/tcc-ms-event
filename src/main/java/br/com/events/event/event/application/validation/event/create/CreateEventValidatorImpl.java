@@ -1,13 +1,12 @@
 package br.com.events.event.event.application.validation.event.create;
 
-import java.util.List;
-
-import org.springframework.stereotype.Component;
-
 import br.com.events.event.event.domain.io.event.create.useCase.in.CreateEventUseCaseForm;
 import br.com.events.event.event.infrastructure.validation.event.create.CreateEventValidation;
 import br.com.events.event.event.infrastructure.validation.event.create.CreateEventValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * This class calls every needed validation to the incoming data at create event feature

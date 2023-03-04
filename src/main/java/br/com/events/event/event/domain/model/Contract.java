@@ -1,6 +1,9 @@
 package br.com.events.event.event.domain.model;
 
-import java.time.LocalDateTime;
+import br.com.events.event.event.domain.model.pk.ContractPk;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -12,11 +15,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
-
-import br.com.events.event.event.domain.model.pk.ContractPk;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.time.LocalDateTime;
 
 /**
  * This class represents the event contract's database table

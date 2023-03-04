@@ -1,14 +1,13 @@
 package br.com.events.event.event.domain.io.event.create.rest.in;
 
-import java.math.BigDecimal;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import java.math.BigDecimal;
 
 /**
  * This class holds every needed information for create a new event

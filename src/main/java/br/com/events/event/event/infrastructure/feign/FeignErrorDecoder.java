@@ -1,18 +1,16 @@
 package br.com.events.event.event.infrastructure.feign;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
-
+import br.com.events.event.event.infrastructure.exception.BusinessException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import br.com.events.event.event.infrastructure.exception.BusinessException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * This class decodes every error that came from feign clients

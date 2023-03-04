@@ -1,10 +1,10 @@
 package br.com.events.event.event.domain.io.event.create.useCase.out;
 
-import java.time.LocalDateTime;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 /**
  * This class holds every generated data at event creation feature

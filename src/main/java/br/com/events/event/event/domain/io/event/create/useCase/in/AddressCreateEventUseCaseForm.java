@@ -1,10 +1,10 @@
 package br.com.events.event.event.domain.io.event.create.useCase.in;
 
-import java.math.BigDecimal;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.math.BigDecimal;
 
 /**
  * This class holds every needed information for create a new event

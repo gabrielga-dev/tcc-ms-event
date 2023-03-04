@@ -1,9 +1,5 @@
 package br.com.events.event.event.domain.mapper.event;
 
-import java.time.LocalDateTime;
-
-import org.springframework.security.core.context.SecurityContextHolder;
-
 import br.com.events.event.event.domain.io.auth.AuthenticatedPerson;
 import br.com.events.event.event.domain.io.event.create.rest.in.AddressCreateEventRestForm;
 import br.com.events.event.event.domain.io.event.create.rest.in.CreateEventRestForm;
@@ -16,6 +12,9 @@ import br.com.events.event.event.domain.model.Event;
 import br.com.events.event.event.util.helpers.DateHelper;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.time.LocalDateTime;
 
 /**
  * This class map every needed class at event creation feature
