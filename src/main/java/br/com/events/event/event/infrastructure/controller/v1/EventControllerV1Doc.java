@@ -1,12 +1,11 @@
 package br.com.events.event.event.infrastructure.controller.v1;
 
-import java.net.URI;
-
-import org.springframework.http.ResponseEntity;
-
 import br.com.events.event.event.domain.io.event.create.rest.in.CreateEventRestForm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.ResponseEntity;
+
+import java.net.URI;
 
 /**
  * This interface dictates which endpoints will be needed for implementation and holds which one's Swagger

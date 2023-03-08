@@ -1,14 +1,13 @@
 package br.com.events.event.event.domain.io.event.create.rest.in;
 
-import java.math.BigDecimal;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import java.math.BigDecimal;
 
 /**
  * This class holds every needed information for create a new event
@@ -34,19 +33,17 @@ public class AddressCreateEventRestForm {
     private String complement;
 
     @NotNull(message = "O campo do nome da cidade não pode ser nulo.")
-    @NotBlank(message = "O campo do nome da cidade não pode estar vazio.")
-    @Size(min = 3, max = 50, message = "O campo do nome da cidade deve conter, pelo menos, 3 caracteres e no máximo 50.")
-    private String city;
+    private Long cityId;
 
     @NotNull(message = "O campo do nome do estado não pode ser nulo.")
     @NotBlank(message = "O campo do nome do estado não pode estar vazio.")
     @Size(min = 2, max = 2, message = "O campo do nome do estado deve conter 2 caracteres.")
-    private String state;
+    private String stateIso;
 
     @NotNull(message = "O campo do nome do país não pode ser nulo.")
     @NotBlank(message = "O campo do nome do país não pode estar vazio.")
     @Size(min = 2, max = 2, message = "O campo do nome do país deve conter 2 caracteres.")
-    private String country;
+    private String countryIso;
 
     @NotNull(message = "O campo do CEP não pode ser nulo.")
     @NotBlank(message = "O campo do CEP não pode estar vazio.")

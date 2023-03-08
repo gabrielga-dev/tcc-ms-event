@@ -1,7 +1,6 @@
 package br.com.events.event.event.infrastructure.controller;
 
-import java.util.Objects;
-
+import br.com.events.event.event.infrastructure.exception.BusinessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
-import br.com.events.event.event.infrastructure.exception.BusinessException;
+import java.util.Objects;
 
 /**
  * This class handle every exception mapped that is thrown onthis microservice

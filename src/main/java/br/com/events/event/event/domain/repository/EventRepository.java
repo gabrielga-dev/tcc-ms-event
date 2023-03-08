@@ -1,9 +1,8 @@
 package br.com.events.event.event.domain.repository;
 
+import br.com.events.event.event.domain.model.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import br.com.events.event.event.domain.model.Event;
 
 
 /**

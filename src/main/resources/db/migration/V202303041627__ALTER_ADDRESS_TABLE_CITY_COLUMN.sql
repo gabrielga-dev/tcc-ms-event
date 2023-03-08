@@ -1,0 +1,1 @@
+ALTER TABLE address MODIFY COLUMN city BIGINT;

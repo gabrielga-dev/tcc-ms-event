@@ -1,9 +1,10 @@
 package br.com.events.event.event.application.controller.v1;
 
-import java.net.URI;
-
-import javax.validation.Valid;
-
+import br.com.events.event.event.domain.io.event.create.rest.in.CreateEventRestForm;
+import br.com.events.event.event.domain.mapper.event.CreateEventMapper;
+import br.com.events.event.event.infrastructure.controller.v1.EventControllerV1Doc;
+import br.com.events.event.event.infrastructure.useCase.event.CreateEventUseCase;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,11 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.events.event.event.domain.io.event.create.rest.in.CreateEventRestForm;
-import br.com.events.event.event.domain.mapper.event.CreateEventMapper;
-import br.com.events.event.event.infrastructure.controller.v1.EventControllerV1Doc;
-import br.com.events.event.event.infrastructure.useCase.event.CreateEventUseCase;
-import lombok.RequiredArgsConstructor;
+import javax.validation.Valid;
+import java.net.URI;
 
 /**
  * This class implements every needed endpoint that is related to event

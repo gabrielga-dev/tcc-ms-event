@@ -1,7 +1,5 @@
 package br.com.events.event.event.application.useCase.event;
 
-import org.springframework.stereotype.Component;
-
 import br.com.events.event.event.domain.io.event.create.useCase.in.CreateEventUseCaseForm;
 import br.com.events.event.event.domain.io.event.create.useCase.out.CreateEventUseCaseResult;
 import br.com.events.event.event.domain.mapper.event.CreateEventMapper;
@@ -9,6 +7,7 @@ import br.com.events.event.event.domain.repository.EventRepository;
 import br.com.events.event.event.infrastructure.useCase.event.CreateEventUseCase;
 import br.com.events.event.event.infrastructure.validation.event.create.CreateEventValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * This class implements {@link CreateEventUseCase} to create a new event

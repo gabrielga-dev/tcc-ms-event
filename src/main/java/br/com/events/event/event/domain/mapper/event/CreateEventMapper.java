@@ -1,9 +1,5 @@
 package br.com.events.event.event.domain.mapper.event;
 
-import java.time.LocalDateTime;
-
-import org.springframework.security.core.context.SecurityContextHolder;
-
 import br.com.events.event.event.domain.io.auth.AuthenticatedPerson;
 import br.com.events.event.event.domain.io.event.create.rest.in.AddressCreateEventRestForm;
 import br.com.events.event.event.domain.io.event.create.rest.in.CreateEventRestForm;
@@ -16,6 +12,9 @@ import br.com.events.event.event.domain.model.Event;
 import br.com.events.event.event.util.helpers.DateHelper;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.time.LocalDateTime;
 
 /**
  * This class map every needed class at event creation feature
@@ -57,9 +56,9 @@ public final class CreateEventMapper {
             .street(addressCreateEventRestForm.getStreet())
             .neighbour(addressCreateEventRestForm.getNeighbour())
             .complement(addressCreateEventRestForm.getComplement())
-            .city(addressCreateEventRestForm.getCity())
-            .state(addressCreateEventRestForm.getState())
-            .country(addressCreateEventRestForm.getCountry())
+            .cityId(addressCreateEventRestForm.getCityId())
+            .stateIso(addressCreateEventRestForm.getStateIso())
+            .countryIso(addressCreateEventRestForm.getCountryIso())
             .zipCode(addressCreateEventRestForm.getZipCode())
             .latitude(addressCreateEventRestForm.getLatitude())
             .longitude(addressCreateEventRestForm.getLongitude())
@@ -117,9 +116,9 @@ public final class CreateEventMapper {
         toReturn.setStreet(form.getStreet());
         toReturn.setNeighbour(form.getNeighbour());
         toReturn.setComplement(form.getComplement());
-        toReturn.setCity(form.getCity());
-        toReturn.setState(form.getState());
-        toReturn.setCountry(form.getCountry());
+        toReturn.setCity(form.getCityId());
+        toReturn.setState(form.getStateIso());
+        toReturn.setCountry(form.getCountryIso());
         toReturn.setZipCode(form.getZipCode());
         toReturn.setLatitude(form.getLatitude());
         toReturn.setLongitude(form.getLongitude());

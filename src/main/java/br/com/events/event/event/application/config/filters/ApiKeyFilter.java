@@ -1,24 +1,17 @@
 package br.com.events.event.event.application.config.filters;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
-
 import br.com.events.event.event.application.config.filters.exception.InvalidApiKeyException;
 import br.com.events.event.event.application.config.filters.exception.NoApiKeyReceivedException;
-import br.com.events.event.event.util.FilterExceptionUtil;
-import br.com.events.event.event.util.FilteredRoutesUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * This class makes the request filtering so only consumers with allowed api-key can access this microservice's
@@ -29,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class ApiKeyFilter extends OncePerRequestFilter {
+public class ApiKeyFilter implements HandlerInterceptor {
 
     @Value("${valid.api.keys}")
     private List<String> validApiKeys;
@@ -37,31 +30,15 @@ public class ApiKeyFilter extends OncePerRequestFilter {
     @Value("${api.key.header}")
     private String apiKeyHeader;
 
-    private final FilteredRoutesUtil filteredRoutesUtil;
-    private final FilterExceptionUtil filterExceptionUtil;
-
     @Override
-    protected boolean shouldNotFilter(final HttpServletRequest request) {
-        var path = request.getRequestURI();
-        return filteredRoutesUtil.isRouteNotProtected(path);
-    }
-
-    @Override
-    public void doFilterInternal(HttpServletRequest httpRequest, HttpServletResponse response, FilterChain filterChain)
-        throws IOException, ServletException {
-
-        log.info("Filtering by api-key");
-
-        var apiKeyOpt = Optional.ofNullable(httpRequest.getHeader(apiKeyHeader));
-
-        if (apiKeyOpt.isPresent()){
-            if (validApiKeys.contains(apiKeyOpt.get())) {
-                filterChain.doFilter(httpRequest, response);
-            } else {
-                filterExceptionUtil.setResponseError(response, new InvalidApiKeyException());
-            }
-        } else {
-            filterExceptionUtil.setResponseError(response, new NoApiKeyReceivedException());
+    public boolean preHandle(
+            final HttpServletRequest request, final HttpServletResponse response, final Object handler
+    ) throws Exception {
+        var apiKey = Optional.ofNullable(request.getHeader(apiKeyHeader))
+                .orElseThrow(NoApiKeyReceivedException::new);
+        if (validApiKeys.contains(apiKey)) {
+            return HandlerInterceptor.super.preHandle(request, response, handler);
         }
+        throw new InvalidApiKeyException();
     }
 }

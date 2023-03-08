@@ -1,6 +1,8 @@
 package br.com.events.event.event.domain.model;
 
-import java.math.BigDecimal;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,10 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.math.BigDecimal;
 
 /**
  * This class represents the event address's database table
@@ -39,7 +38,7 @@ public class Address {
     private String complement;
 
     @Column(name = "city", nullable = false)
-    private String city;
+    private Long city;
 
     @Column(name = "state", nullable = false)
     private String state;

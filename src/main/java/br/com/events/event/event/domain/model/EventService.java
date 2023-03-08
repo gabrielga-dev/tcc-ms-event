@@ -1,8 +1,9 @@
 package br.com.events.event.event.domain.model;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
+import br.com.events.event.event.domain.model.pk.EventServicePk;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,11 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import br.com.events.event.event.domain.model.pk.EventServicePk;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * This class represents the event service's database table

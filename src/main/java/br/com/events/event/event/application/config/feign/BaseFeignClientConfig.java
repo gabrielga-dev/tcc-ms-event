@@ -1,8 +1,7 @@
 package br.com.events.event.event.application.config.feign;
 
-import org.springframework.context.annotation.Bean;
-
 import feign.Logger;
+import org.springframework.context.annotation.Bean;
 
 /**
  * This class sets the logging level of all feign clients
