@@ -33,17 +33,17 @@ public class AddressCreateEventRestForm {
     private String complement;
 
     @NotNull(message = "O campo do nome da cidade não pode ser nulo.")
-    private Long city;
+    private Long cityId;
 
     @NotNull(message = "O campo do nome do estado não pode ser nulo.")
     @NotBlank(message = "O campo do nome do estado não pode estar vazio.")
     @Size(min = 2, max = 2, message = "O campo do nome do estado deve conter 2 caracteres.")
-    private String state;
+    private String stateIso;
 
     @NotNull(message = "O campo do nome do país não pode ser nulo.")
     @NotBlank(message = "O campo do nome do país não pode estar vazio.")
     @Size(min = 2, max = 2, message = "O campo do nome do país deve conter 2 caracteres.")
-    private String country;
+    private String countryIso;
 
     @NotNull(message = "O campo do CEP não pode ser nulo.")
     @NotBlank(message = "O campo do CEP não pode estar vazio.")
