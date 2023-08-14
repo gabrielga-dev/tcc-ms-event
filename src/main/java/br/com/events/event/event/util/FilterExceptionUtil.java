@@ -1,6 +1,6 @@
 package br.com.events.event.event.util;
 
-import br.com.events.event.event.infrastructure.exception.BusinessException;
+import br.com.events.event.event.domain.exception.BusinessException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class FilterExceptionUtil {
 
-    private final ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public void setResponseError(HttpServletResponse servletResponse, BusinessException be) throws IOException {
         servletResponse.setContentType("application/json");

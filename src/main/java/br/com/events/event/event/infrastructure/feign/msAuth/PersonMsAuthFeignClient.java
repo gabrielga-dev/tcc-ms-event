@@ -1,7 +1,7 @@
 package br.com.events.event.event.infrastructure.feign.msAuth;
 
-import br.com.events.event.event.application.config.feign.MyEventFeignClientConfiguration;
-import br.com.events.event.event.domain.io.feign.msAuth.person.getAuthenticatedPerson.out.GetAuthenticatedPersonInformationResult;
+import br.com.events.event.event.infrastructure.config.feign.MyEventFeignClientConfiguration;
+import br.com.events.event.event.domain.io.outbound.msAuth.person.get_authenticated_person.out.GetAuthenticatedPersonInformationResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;

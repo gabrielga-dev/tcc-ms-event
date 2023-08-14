@@ -1,12 +1,11 @@
 package br.com.events.event.event.domain.mapper.event;
 
-import br.com.events.event.event.domain.io.auth.AuthenticatedPerson;
-import br.com.events.event.event.domain.io.event.create.rest.in.AddressCreateEventRestForm;
-import br.com.events.event.event.domain.io.event.create.rest.in.CreateEventRestForm;
-import br.com.events.event.event.domain.io.event.create.rest.out.CreateEventRestResult;
-import br.com.events.event.event.domain.io.event.create.useCase.in.AddressCreateEventUseCaseForm;
-import br.com.events.event.event.domain.io.event.create.useCase.in.CreateEventUseCaseForm;
-import br.com.events.event.event.domain.io.event.create.useCase.out.CreateEventUseCaseResult;
+import br.com.events.event.event.domain.io.inbound.auth.AuthenticatedPerson;
+import br.com.events.event.event.domain.io.inbound.event.create.base.EventAddressForm;
+import br.com.events.event.event.domain.io.inbound.event.create.in.CreateEventRestForm;
+import br.com.events.event.event.domain.io.inbound.event.create.in.CreateEventUseCaseForm;
+import br.com.events.event.event.domain.io.inbound.event.create.out.CreateEventRestResult;
+import br.com.events.event.event.domain.io.inbound.event.create.out.CreateEventUseCaseResult;
 import br.com.events.event.event.domain.model.Address;
 import br.com.events.event.event.domain.model.Event;
 import br.com.events.event.event.util.helpers.DateHelper;
@@ -39,29 +38,7 @@ public final class CreateEventMapper {
             .date(
                 DateHelper.timestampToLocalDateTime(createEventRestForm.getDateTimestamp())
             )
-            .address(toUseCaseForm(createEventRestForm.getAddress()))
-            .build();
-    }
-
-
-    /**
-     * This method maps a {@link AddressCreateEventRestForm} into a {@link AddressCreateEventUseCaseForm} object
-     *
-     * @param addressCreateEventRestForm {@link AddressCreateEventRestForm} object with the data to be mapped
-     * @return {@link AddressCreateEventUseCaseForm} object with the mapped information
-     */
-    public static AddressCreateEventUseCaseForm toUseCaseForm(AddressCreateEventRestForm addressCreateEventRestForm) {
-        return AddressCreateEventUseCaseForm
-            .builder()
-            .street(addressCreateEventRestForm.getStreet())
-            .neighbour(addressCreateEventRestForm.getNeighbour())
-            .complement(addressCreateEventRestForm.getComplement())
-            .cityId(addressCreateEventRestForm.getCityId())
-            .stateIso(addressCreateEventRestForm.getStateIso())
-            .countryIso(addressCreateEventRestForm.getCountryIso())
-            .zipCode(addressCreateEventRestForm.getZipCode())
-            .latitude(addressCreateEventRestForm.getLatitude())
-            .longitude(addressCreateEventRestForm.getLongitude())
+            .address(createEventRestForm.getAddress())
             .build();
     }
 
@@ -95,7 +72,7 @@ public final class CreateEventMapper {
         toReturn.setDate(form.getDate());
         toReturn.setCreationDate(LocalDateTime.now());
 
-        var authenticated = (AuthenticatedPerson)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var authenticated = (AuthenticatedPerson) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         toReturn.setOwnerUuid(authenticated.getUuid());
 
         var address = toEntity(form.getAddress());
@@ -111,7 +88,7 @@ public final class CreateEventMapper {
      * @param form {@link CreateEventUseCaseForm} object with the data to be mapped
      * @return {@link Event} object with the mapped information
      */
-    public static Address toEntity(final AddressCreateEventUseCaseForm form) {
+    public static Address toEntity(final EventAddressForm form) {
         var toReturn = new Address();
         toReturn.setStreet(form.getStreet());
         toReturn.setNeighbour(form.getNeighbour());

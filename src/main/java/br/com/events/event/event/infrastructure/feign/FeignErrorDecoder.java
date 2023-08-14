@@ -1,6 +1,6 @@
 package br.com.events.event.event.infrastructure.feign;
 
-import br.com.events.event.event.infrastructure.exception.BusinessException;
+import br.com.events.event.event.domain.exception.BusinessException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Response;

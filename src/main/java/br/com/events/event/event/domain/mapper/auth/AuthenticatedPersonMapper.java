@@ -1,7 +1,7 @@
 package br.com.events.event.event.domain.mapper.auth;
 
-import br.com.events.event.event.domain.io.auth.AuthenticatedPerson;
-import br.com.events.event.event.domain.io.feign.msAuth.person.getAuthenticatedPerson.out.GetAuthenticatedPersonInformationResult;
+import br.com.events.event.event.domain.io.inbound.auth.AuthenticatedPerson;
+import br.com.events.event.event.domain.io.outbound.msAuth.person.get_authenticated_person.out.GetAuthenticatedPersonInformationResult;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
