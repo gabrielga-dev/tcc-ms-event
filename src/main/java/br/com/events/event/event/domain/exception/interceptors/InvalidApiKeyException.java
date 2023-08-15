@@ -1,4 +1,4 @@
-package br.com.events.event.event.infrastructure.config.interceptors.exception;
+package br.com.events.event.event.domain.exception.interceptors;
 
 
 import br.com.events.event.event.domain.exception.bad_request.BadRequestException;

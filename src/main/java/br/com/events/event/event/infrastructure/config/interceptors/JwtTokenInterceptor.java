@@ -1,6 +1,6 @@
 package br.com.events.event.event.infrastructure.config.interceptors;
 
-import br.com.events.event.event.infrastructure.config.interceptors.exception.NoTokenReceivedException;
+import br.com.events.event.event.domain.exception.interceptors.NoTokenReceivedException;
 import br.com.events.event.event.domain.io.outbound.msAuth.person.get_authenticated_person.out.GetAuthenticatedPersonInformationResult;
 import br.com.events.event.event.domain.mapper.auth.AuthenticatedPersonMapper;
 import br.com.events.event.event.domain.exception.BusinessException;

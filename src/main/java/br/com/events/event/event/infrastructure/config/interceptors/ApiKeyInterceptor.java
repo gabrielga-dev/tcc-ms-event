@@ -1,7 +1,7 @@
 package br.com.events.event.event.infrastructure.config.interceptors;
 
-import br.com.events.event.event.infrastructure.config.interceptors.exception.InvalidApiKeyException;
-import br.com.events.event.event.infrastructure.config.interceptors.exception.NoApiKeyReceivedException;
+import br.com.events.event.event.domain.exception.interceptors.InvalidApiKeyException;
+import br.com.events.event.event.domain.exception.interceptors.NoApiKeyReceivedException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
