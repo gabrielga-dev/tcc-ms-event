@@ -1,6 +1,6 @@
 package br.com.events.event.event.infrastructure.controller;
 
-import br.com.events.event.event.infrastructure.exception.BusinessException;
+import br.com.events.event.event.domain.exception.BusinessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +20,13 @@ import java.util.Objects;
 public class RestExceptionHandler {
 
     @ExceptionHandler(value = {BusinessException.class})
-    protected ResponseEntity<Object> handleException(BusinessException ex, WebRequest request) {
+    protected ResponseEntity<Object> handleBusinessException(BusinessException ex, WebRequest request) {
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.status(ex.getHttpStatusCode()).headers(responseHeaders).body(ex.getOnlyBody());
     }
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
-    protected ResponseEntity<Object> handleException(MethodArgumentNotValidException ex, WebRequest request) {
+    protected ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request) {
         HttpHeaders responseHeaders = new HttpHeaders();
         var errorMessages = String.format(Objects.requireNonNull(ex.getAllErrors().get(0).getDefaultMessage()));
         var toReturn = BusinessException.BusinessExceptionBody.builder()

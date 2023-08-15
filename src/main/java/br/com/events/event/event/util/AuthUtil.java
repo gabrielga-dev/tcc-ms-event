@@ -1,6 +1,6 @@
 package br.com.events.event.event.util;
 
-import br.com.events.event.event.domain.io.auth.AuthenticatedPerson;
+import br.com.events.event.event.domain.io.inbound.auth.AuthenticatedPerson;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
