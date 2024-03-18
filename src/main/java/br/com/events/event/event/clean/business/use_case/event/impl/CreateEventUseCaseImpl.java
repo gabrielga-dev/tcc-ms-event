@@ -1,6 +1,5 @@
 package br.com.events.event.event.clean.business.use_case.event.impl;
 
-import br.com.events.event.event.clean.adapter.repository.EventRepository;
 import br.com.events.event.event.clean.business.command.band.CheckEventCommand;
 import br.com.events.event.event.clean.business.command.band.SaveEventCommand;
 import br.com.events.event.event.clean.business.use_case.event.CreateEventUseCase;
@@ -21,7 +20,6 @@ public class CreateEventUseCaseImpl implements CreateEventUseCase {
 
     private final CheckEventCommand checkEventCommand;
     private final SaveEventCommand saveEventCommand;
-    private final EventRepository eventJpaRepository;
 
 
     @Override
