@@ -5,18 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * This class represents the event service's database table
@@ -27,8 +23,8 @@ import java.util.List;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "event_service")
-public class EventService {
+@Table(name = "event_quote")
+public class EventQuote {
 
     @EmbeddedId
     private EventServicePk pk;
@@ -39,14 +35,10 @@ public class EventService {
     @Column(name = "hired_date")
     private LocalDateTime hiredDate;
 
-    @Column(name = "price", nullable = false)
-    private BigDecimal price;
+    @Column(name = "quote_uuid")
+    private String quoteUuid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("eventUuid")
     private Event event;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "eventService", cascade = CascadeType.ALL)
-    private List<Contract> contracts;
-
 }
