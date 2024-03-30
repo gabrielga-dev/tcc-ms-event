@@ -1,8 +1,8 @@
 package br.com.events.event.event.business.use_case.event.impl;
 
-import br.com.events.event.event.business.command.band.CheckEventCommand;
+import br.com.events.event.event.business.command.event.CheckEventCommand;
 import br.com.events.event.event.business.use_case.event.CreateEventUseCase;
-import br.com.events.event.event.business.command.band.SaveEventCommand;
+import br.com.events.event.event.business.command.event.SaveEventCommand;
 import br.com.events.event.event.data.io.inbound.event.in.EventRequest;
 import br.com.events.event.event.data.io.inbound.event.out.EventResponse;
 import br.com.events.event.event.data.model.Event;

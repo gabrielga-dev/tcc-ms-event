@@ -40,7 +40,7 @@ public final class DateUtil {
      * @param localDateTime {@link LocalDateTime} object with the data to be converted
      * @return {@link Long} timestamp converted
      */
-    public static Long LocalDateTimeToTimestamp(LocalDateTime localDateTime) {
+    public static Long localDateTimeToTimestamp(LocalDateTime localDateTime) {
         return localDateTime.atZone(ZoneId.of(ZONE_ID)).toInstant().toEpochMilli();
     }
 }

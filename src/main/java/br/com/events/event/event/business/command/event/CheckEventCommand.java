@@ -1,4 +1,4 @@
-package br.com.events.event.event.business.command.band;
+package br.com.events.event.event.business.command.event;
 
 import br.com.events.event.event.business.command.address.CheckAddressCommand;
 import br.com.events.event.event.core.exception.event.DateOnPastException;

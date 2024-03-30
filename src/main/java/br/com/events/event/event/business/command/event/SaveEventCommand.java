@@ -1,4 +1,4 @@
-package br.com.events.event.event.business.command.band;
+package br.com.events.event.event.business.command.event;
 
 import br.com.events.event.event.adapter.repository.EventRepository;
 import br.com.events.event.event.data.model.Event;
