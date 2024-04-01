@@ -67,6 +67,7 @@ public class Address {
     public Address(AddressRequest form) {
         this.uuid = UUID.randomUUID().toString();
         this.street = form.getStreet();
+        this.number = form.getNumber();
         this.neighbour = form.getNeighbour();
         this.complement = form.getComplement();
         this.city = form.getCityId();

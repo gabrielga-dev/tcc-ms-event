@@ -75,4 +75,13 @@ public class Event {
         this.address = new Address(form.getAddress());
         this.address.setEvent(this);
     }
+
+    public void cancel() {
+        this.active = Boolean.FALSE;
+        this.updateDate = LocalDateTime.now();
+    }
+
+    public boolean alreadyHappened() {
+        return LocalDateTime.now().isAfter(this.date);
+    }
 }

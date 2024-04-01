@@ -30,4 +30,7 @@ public interface EventControllerV1Port {
 
     @ApiOperation(value = "Find an event's profile by it's uuid")
     ResponseEntity<EventProfileResponse> findProfile(String uuid);
+
+    @ApiOperation(value = "Cancel an event by it's uuid")
+    ResponseEntity<Void> cancel(String uuid);
 }

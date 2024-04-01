@@ -1,6 +1,7 @@
 package br.com.events.event.event.adapter.port.controller;
 
 import br.com.events.event.event.adapter.port.EventControllerV1Port;
+import br.com.events.event.event.business.use_case.event.CancelEventUseCase;
 import br.com.events.event.event.business.use_case.event.CreateEventUseCase;
 import br.com.events.event.event.business.use_case.event.FindEventByUuidUseCase;
 import br.com.events.event.event.business.use_case.event.FindEventProfileUseCase;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +37,7 @@ public class EventControllerV1 implements EventControllerV1Port {
     private final CreateEventUseCase createEventUseCase;
     private final FindEventByUuidUseCase findEventByUuidUseCase;
     private final FindEventProfileUseCase findEventProfileUseCase;
+    private final CancelEventUseCase cancelEventUseCase;
 
     @Override
     @PostMapping
@@ -57,5 +60,12 @@ public class EventControllerV1 implements EventControllerV1Port {
     public ResponseEntity<EventProfileResponse> findProfile(@PathVariable("uuid") String uuid) {
         var profile = findEventProfileUseCase.execute(uuid);
         return ResponseEntity.ok(profile);
+    }
+
+    @Override
+    @DeleteMapping("/{uuid}/cancel")
+    public ResponseEntity<Void> cancel(@PathVariable("uuid") String uuid) {
+        cancelEventUseCase.execute(uuid);
+        return ResponseEntity.noContent().build();
     }
 }
