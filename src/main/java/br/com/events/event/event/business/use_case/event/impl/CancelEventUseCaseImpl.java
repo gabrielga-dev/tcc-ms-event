@@ -25,7 +25,7 @@ public class CancelEventUseCaseImpl implements CancelEventUseCase {
             throw new EventAlreadyHappenedException();
         }
 
-        if (AuthUtil.getAuthenticatedPerson().getUuid().equals(event.getOwnerUuid())) {
+        if (!AuthUtil.getAuthenticatedPerson().getUuid().equals(event.getOwnerUuid())) {
             throw new NotEventOwnerException();
         }
 
