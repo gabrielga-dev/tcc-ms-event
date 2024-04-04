@@ -28,6 +28,9 @@ public interface EventControllerV1Port {
     @ApiOperation(value = "Find events by criteria")
     ResponseEntity<Page<EventResponse>> findByCriteria(EventCriteria criteria, Pageable pageable);
 
+    @ApiOperation(value = "Find an event by it's uuid")
+    ResponseEntity<EventProfileResponse> findByUuid(String uuid);
+
     @ApiOperation(value = "Find an event's profile by it's uuid")
     ResponseEntity<EventProfileResponse> findProfile(String uuid);
 

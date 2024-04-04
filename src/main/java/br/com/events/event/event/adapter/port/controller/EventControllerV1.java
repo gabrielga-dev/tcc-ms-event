@@ -3,7 +3,7 @@ package br.com.events.event.event.adapter.port.controller;
 import br.com.events.event.event.adapter.port.EventControllerV1Port;
 import br.com.events.event.event.business.use_case.event.CancelEventUseCase;
 import br.com.events.event.event.business.use_case.event.CreateEventUseCase;
-import br.com.events.event.event.business.use_case.event.FindEventByUuidUseCase;
+import br.com.events.event.event.business.use_case.event.FindEventByCriteriaUseCase;
 import br.com.events.event.event.business.use_case.event.FindEventProfileUseCase;
 import br.com.events.event.event.data.io.inbound.event.in.EventCriteria;
 import br.com.events.event.event.data.io.inbound.event.in.EventRequest;
@@ -35,7 +35,7 @@ import java.net.URI;
 public class EventControllerV1 implements EventControllerV1Port {
 
     private final CreateEventUseCase createEventUseCase;
-    private final FindEventByUuidUseCase findEventByUuidUseCase;
+    private final FindEventByCriteriaUseCase findEventByCriteriaUseCase;
     private final FindEventProfileUseCase findEventProfileUseCase;
     private final CancelEventUseCase cancelEventUseCase;
 
@@ -51,8 +51,15 @@ public class EventControllerV1 implements EventControllerV1Port {
     @Override
     @GetMapping
     public ResponseEntity<Page<EventResponse>> findByCriteria(EventCriteria criteria, Pageable pageable) {
-        var resultPage = findEventByUuidUseCase.execute(criteria, pageable);
+        var resultPage = findEventByCriteriaUseCase.execute(criteria, pageable);
         return ResponseEntity.ok(resultPage);
+    }
+
+    @Override
+    @GetMapping("/{uuid}")
+    public ResponseEntity<EventProfileResponse> findByUuid(@PathVariable("uuid") String uuid) {
+        var event = findEventProfileUseCase.execute(uuid);
+        return ResponseEntity.ok(event);
     }
 
     @Override

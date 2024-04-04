@@ -60,7 +60,7 @@ public class Event {
     private Address address;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "event", cascade = CascadeType.ALL)
-    private List<EventQuote> quotes;
+    private List<QuoteRequest> quotes;
 
     public Event(EventRequest form) {
         this.uuid = UUID.randomUUID().toString();

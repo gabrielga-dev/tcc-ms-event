@@ -41,6 +41,9 @@ public final class DateUtil {
      * @return {@link Long} timestamp converted
      */
     public static Long localDateTimeToTimestamp(LocalDateTime localDateTime) {
+        if (Objects.isNull(localDateTime)){
+            return null;
+        }
         return localDateTime.atZone(ZoneId.of(ZONE_ID)).toInstant().toEpochMilli();
     }
 }
