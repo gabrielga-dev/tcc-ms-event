@@ -6,10 +6,11 @@ import br.com.events.event.event.data.model.Event;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
-public class EventProfileResponse {
-
+public class EventProfileResponse implements Serializable {
 
     private String uuid;
     private String name;

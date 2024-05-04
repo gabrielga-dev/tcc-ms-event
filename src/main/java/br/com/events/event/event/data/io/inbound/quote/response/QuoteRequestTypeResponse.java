@@ -1,7 +1,7 @@
 package br.com.events.event.event.data.io.inbound.quote.response;
 
 import br.com.events.event.event.data.model.QuoteRequest;
-import br.com.events.event.event.data.model.type.ServiceType;
+import br.com.events.event.event.data.model.type.BusinessType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 public class QuoteRequestTypeResponse {
 
     private String name;
-    private ServiceType serviceType;
+    private BusinessType businessType;
     private List<QuoteRequestResponse> quoteRequests;
 
-    public QuoteRequestTypeResponse(Map.Entry<ServiceType, List<QuoteRequest>> entry) {
+    public QuoteRequestTypeResponse(Map.Entry<BusinessType, List<QuoteRequest>> entry) {
         this.name = entry.getKey().getTranslatedName();
-        this.serviceType = entry.getKey();
+        this.businessType = entry.getKey();
         this.quoteRequests = entry.getValue()
                 .stream()
                 .map(QuoteRequestResponse::new)

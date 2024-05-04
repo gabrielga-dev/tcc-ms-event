@@ -18,7 +18,7 @@ public class QuoteRequestResponse {
 
 
     public QuoteRequestResponse(QuoteRequest quoteRequest) {
-        this.serviceUuid = quoteRequest.getPk().getBusinessUuid();
+        this.serviceUuid = quoteRequest.getBusinessUuid();
         this.quoteUuid = quoteRequest.getQuoteUuid();
         this.statusDescription = quoteRequest.getStatus().getTranslatedName();
         this.status = quoteRequest.getStatus();

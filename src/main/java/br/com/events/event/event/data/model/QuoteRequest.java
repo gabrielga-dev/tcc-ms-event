@@ -1,21 +1,22 @@
 package br.com.events.event.event.data.model;
 
-import br.com.events.event.event.data.model.pk.EventServicePk;
+import br.com.events.event.event.data.io.inbound.quote.request.QuoteRequestRequest;
+import br.com.events.event.event.data.model.type.BusinessType;
 import br.com.events.event.event.data.model.type.QuoteRequestStatusType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * This class represents the event service's database table
@@ -29,8 +30,18 @@ import java.time.LocalDateTime;
 @Table(name = "quote_request")
 public class QuoteRequest {
 
-    @EmbeddedId
-    private EventServicePk pk;
+    @Id
+    private String uuid;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Event event;
+
+    @Column(name = "business_uuid", nullable = false)
+    private String businessUuid;
+
+    @Column(name = "business_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private BusinessType businessType;
 
     @Column(name = "quote_uuid")
     private String quoteUuid;
@@ -39,10 +50,19 @@ public class QuoteRequest {
     @Enumerated(EnumType.STRING)
     private QuoteRequestStatusType status;
 
+    @Column(name = "creation_date")
+    private LocalDateTime creationDate;
+
     @Column(name = "update_date")
     private LocalDateTime updateDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("eventUuid")
-    private Event event;
+
+    public QuoteRequest(Event event, BusinessType businessType, String businessUuid) {
+        this.uuid = UUID.randomUUID().toString();
+        this.event = event;
+        this.businessUuid = businessUuid;
+        this.businessType = businessType;
+        this.status = QuoteRequestStatusType.NON_ANSWERED;
+        this.creationDate = LocalDateTime.now();
+    }
 }

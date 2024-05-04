@@ -5,15 +5,13 @@ import br.com.events.event.event.data.model.QuoteRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 @RequiredArgsConstructor
-public class FindAllQuoteRequestCommand {
+public class SaveQuoteRequestCommand {
 
     private final QuoteRequestRepository quoteRequestRepository;
 
-    public List<QuoteRequest> findAll(String eventUuid) {
-        return quoteRequestRepository.findByEventUuid(eventUuid);
+    public QuoteRequest execute(QuoteRequest toSave){
+        return quoteRequestRepository.save(toSave);
     }
 }

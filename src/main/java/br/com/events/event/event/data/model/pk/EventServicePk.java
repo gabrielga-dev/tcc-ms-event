@@ -1,6 +1,6 @@
 package br.com.events.event.event.data.model.pk;
 
-import br.com.events.event.event.data.model.type.ServiceType;
+import br.com.events.event.event.data.model.type.BusinessType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -39,5 +39,5 @@ public class EventServicePk implements Serializable {
 
     @Column(name = "business_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private ServiceType serviceType;
+    private BusinessType businessType;
 }
