@@ -1,11 +1,15 @@
 package br.com.events.event.event.data.io.outbound.ms_band.message.quote_request;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@RequiredArgsConstructor
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class QuoteRequestCreationErrorMessage {
 
-    private final String quoteRequestUuid;
+    private String quoteRequestUuid;
 }

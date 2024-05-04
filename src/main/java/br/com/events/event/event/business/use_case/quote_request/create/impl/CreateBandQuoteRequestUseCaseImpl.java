@@ -42,7 +42,7 @@ public class CreateBandQuoteRequestUseCaseImpl implements CreateQuoteRequestUseC
 
         sendQuoteRequestMessageCommandFactory.findMessageSender(BusinessType.BAND)
                 .orElseThrow(BusinessTypeNotSupportedYetException::new)
-                .sendMessage(eventUuid, toSave.getUuid(), bandUuid, quoteRequest, true);
+                .sendMessage(eventUuid, toSave.getUuid(), bandUuid, quoteRequest);
 
         saveQuoteRequestCommand.execute(toSave);
     }
