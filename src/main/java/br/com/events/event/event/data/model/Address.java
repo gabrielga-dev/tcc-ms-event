@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 /**
  * This class represents the event address's database table
@@ -26,11 +27,14 @@ import java.math.BigDecimal;
 public class Address {
 
     @Id
-    @Column(name = "event_uuid", nullable = false)
-    private String eventUuid;
+    @Column(name = "uuid", nullable = false)
+    private String uuid;
 
     @Column(name = "street", nullable = false)
     private String street;
+
+    @Column(name = "number", nullable = false)
+    private Integer number;
 
     @Column(name = "neighbour", nullable = false)
     private String neighbour;
@@ -61,7 +65,9 @@ public class Address {
     private Event event;
 
     public Address(AddressRequest form) {
+        this.uuid = UUID.randomUUID().toString();
         this.street = form.getStreet();
+        this.number = form.getNumber();
         this.neighbour = form.getNeighbour();
         this.complement = form.getComplement();
         this.city = form.getCityId();

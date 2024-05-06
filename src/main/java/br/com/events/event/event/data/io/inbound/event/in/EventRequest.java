@@ -29,7 +29,7 @@ public class EventRequest implements IEvent {
 
     @NotNull(message = "O campo de descrição não pode ser nulo.")
     @NotBlank(message = "O campo de descrição não pode estar vazio.")
-    @Size(min = 3, max = 100, message = "O campo de descrição deve conter, pelo menos, 10 caracteres e no máximo 500.")
+    @Size(min = 3, max = 500, message = "O campo de descrição deve conter, pelo menos, 10 caracteres e no máximo 500.")
     private String description;
 
     @Valid

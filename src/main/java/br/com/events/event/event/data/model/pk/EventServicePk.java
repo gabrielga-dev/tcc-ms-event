@@ -1,5 +1,6 @@
 package br.com.events.event.event.data.model.pk;
 
+import br.com.events.event.event.data.model.type.BusinessType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -9,6 +10,8 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.io.Serializable;
 
 /**
@@ -30,4 +33,11 @@ public class EventServicePk implements Serializable {
 
     @Column(name = "business_uuid", nullable = false)
     private String businessUuid;
+
+    @Column(name = "quote_request_uuid", nullable = false)
+    private String quoteRequestUuid;
+
+    @Column(name = "business_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private BusinessType businessType;
 }

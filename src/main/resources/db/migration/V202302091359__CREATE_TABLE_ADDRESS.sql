@@ -1,6 +1,7 @@
 create table address
 (
-    event_uuid varchar(36) primary key not null,
+    uuid       varchar(36) primary key not null,
+    event_uuid varchar(36)             not null,
     street     varchar(50)             not null,
     neighbour  varchar(50)             not null,
     complement varchar(10),

@@ -60,9 +60,10 @@ public class Event {
     private Address address;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "event", cascade = CascadeType.ALL)
-    private List<EventService> services;
+    private List<QuoteRequest> quotes;
 
     public Event(EventRequest form) {
+        this.uuid = UUID.randomUUID().toString();
         this.name = form.getName();
         this.description = form.getDescription();
         this.date = form.getDate();
@@ -72,5 +73,15 @@ public class Event {
         this.ownerUuid = authenticated.getUuid();
 
         this.address = new Address(form.getAddress());
+        this.address.setEvent(this);
+    }
+
+    public void cancel() {
+        this.active = Boolean.FALSE;
+        this.updateDate = LocalDateTime.now();
+    }
+
+    public boolean alreadyHappened() {
+        return LocalDateTime.now().isAfter(this.date);
     }
 }

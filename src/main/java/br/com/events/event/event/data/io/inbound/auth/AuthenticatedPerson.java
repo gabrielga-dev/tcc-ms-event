@@ -1,7 +1,6 @@
 package br.com.events.event.event.data.io.inbound.auth;
 
 import br.com.events.event.event.data.io.outbound.msAuth.person.get_authenticated_person.out.GetAuthenticatedPersonInformationResult;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,7 +11,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@Builder
 public class AuthenticatedPerson implements UserDetails {
 
     private String uuid;
