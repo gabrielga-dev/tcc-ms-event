@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This interface dictates which endpoints will be needed for implementation and holds which one's Swagger
@@ -36,4 +38,7 @@ public interface EventControllerV1Port {
 
     @ApiOperation(value = "Cancel an event by it's uuid")
     ResponseEntity<Void> cancel(String uuid);
+
+    @ApiOperation(value = "Find event's names")
+    ResponseEntity<Map<String, String>> findNames(List<String> eventUuids);
 }

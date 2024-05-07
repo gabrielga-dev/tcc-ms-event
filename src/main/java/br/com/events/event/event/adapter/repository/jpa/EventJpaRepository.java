@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 /**
@@ -37,4 +38,7 @@ public interface EventJpaRepository extends EventRepository, JpaRepository<Event
             @Param("ownerUuid") String ownerUuid,
             Pageable pageable
     );
+
+    @Query("SELECT event FROM Event event WHERE event.uuid IN :uuids")
+    List<Event> findByUuids(@Param("uuids") List<String> uuids);
 }
