@@ -1,4 +1,4 @@
-package br.com.events.event.event.business.command.quote_request.message;
+package br.com.events.event.event.business.command.quote_request.message.create;
 
 import br.com.events.event.event.data.model.type.BusinessType;
 

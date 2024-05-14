@@ -18,7 +18,7 @@ public class CreateQuoteDlqRequestSqsListener {
     private final DeleteQuoteRequestUseCase deleteQuoteRequestUseCase;
 
     @SqsListener("${cloud.aws.endpoint.uri.quote.band-dlq}")
-    public void receiveUpdateMusicianRequestMessage(String message) {
+    public void receiveQuoteRequestCreationDlqMessage(String message) {
         try {
             var object = objectMapper.readValue(message, QuoteRequestCreationErrorMessage.class);
             deleteQuoteRequestUseCase.execute(object);

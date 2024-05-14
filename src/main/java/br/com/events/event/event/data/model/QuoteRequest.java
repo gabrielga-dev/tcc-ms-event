@@ -1,6 +1,5 @@
 package br.com.events.event.event.data.model;
 
-import br.com.events.event.event.data.io.inbound.quote.request.QuoteRequestRequest;
 import br.com.events.event.event.data.model.type.BusinessType;
 import br.com.events.event.event.data.model.type.QuoteRequestStatusType;
 import lombok.Getter;
@@ -64,5 +63,10 @@ public class QuoteRequest {
         this.businessType = businessType;
         this.status = QuoteRequestStatusType.NON_ANSWERED;
         this.creationDate = LocalDateTime.now();
+    }
+
+    public void decline() {
+        this.status = QuoteRequestStatusType.DECLINED;
+        this.updateDate = LocalDateTime.now();
     }
 }

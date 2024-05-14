@@ -1,4 +1,4 @@
-package br.com.events.event.event.data.io.inbound.quote.request;
+package br.com.events.event.event.data.io.inbound.quote.request.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

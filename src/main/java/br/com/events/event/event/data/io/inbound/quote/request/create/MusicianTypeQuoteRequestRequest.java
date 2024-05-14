@@ -1,4 +1,4 @@
-package br.com.events.event.event.data.io.inbound.quote.request;
+package br.com.events.event.event.data.io.inbound.quote.request.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,14 +13,15 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MusicQuoteRequestRequest {
+public class MusicianTypeQuoteRequestRequest {
 
-    @NotNull(message = "Informe uma música existente")
-    private String musicUuid;
+    @NotNull(message = "Informe um tipo de músico existente")
+    private String musicianTypeUuid;
+
+    @Min(value = 0, message = "A quantidade dos músicos deve ser válida")
+    private Integer quantity;
 
     @Size(max = 500, message = "O campo de observação deve ter, no máximo, 500 caracteres")
     private String observation;
 
-    @Min(value = 0, message = "A ordem das músicas devem ser válidas")
-    private Integer order;
 }

@@ -7,8 +7,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum BusinessType {
 
-    BAND("Bandas"),
-    BUFFET("Buffet");
+    BAND("Bandas", "Banda"),
+    BUFFET("Buffet", "Buffet");
 
     private final String translatedName;
+    private final String translatedSingleName;
 }

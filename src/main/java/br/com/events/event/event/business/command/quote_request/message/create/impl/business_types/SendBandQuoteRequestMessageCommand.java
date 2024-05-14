@@ -1,8 +1,8 @@
-package br.com.events.event.event.business.command.quote_request.message.impl.business_types;
+package br.com.events.event.event.business.command.quote_request.message.create.impl.business_types;
 
 import br.com.events.event.event.adapter.queue.sqs.sender.SqsMessageSender;
-import br.com.events.event.event.business.command.quote_request.message.SendQuoteRequestMessageCommand;
-import br.com.events.event.event.data.io.inbound.quote.request.QuoteRequestRequest;
+import br.com.events.event.event.business.command.quote_request.message.create.SendQuoteRequestMessageCommand;
+import br.com.events.event.event.data.io.inbound.quote.request.create.QuoteRequestRequest;
 import br.com.events.event.event.data.io.outbound.ms_band.message.quote_request.QuoteRequestMsBandMessage;
 import br.com.events.event.event.data.model.type.BusinessType;
 import lombok.RequiredArgsConstructor;

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -17,6 +18,8 @@ import java.util.Objects;
 public final class DateUtil {
 
     private static final String ZONE_ID = "America/Sao_Paulo";
+        private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy 'às' HH:mm:ss");
+
 
     /**
      * This method transforms a {@link Long} timestamp into a {@link LocalDateTime} object
@@ -45,5 +48,12 @@ public final class DateUtil {
             return null;
         }
         return localDateTime.atZone(ZoneId.of(ZONE_ID)).toInstant().toEpochMilli();
+    }
+
+    public static String format(LocalDateTime date) {
+        if (Objects.isNull(date)){
+            return "";
+        }
+        return date.format(DATE_FORMAT);
     }
 }
