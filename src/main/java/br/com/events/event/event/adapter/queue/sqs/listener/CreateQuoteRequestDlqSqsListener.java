@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CreateQuoteDlqRequestSqsListener {
+public class CreateQuoteRequestDlqSqsListener {
 
     private final ObjectMapper objectMapper;
     private final DeleteQuoteRequestUseCase deleteQuoteRequestUseCase;

@@ -1,6 +1,5 @@
 package br.com.events.event.event.data.io.inbound.quote.response;
 
-import br.com.events.event.event.core.util.DateUtil;
 import br.com.events.event.event.data.model.QuoteRequest;
 import br.com.events.event.event.data.model.type.QuoteRequestStatusType;
 import lombok.Getter;
@@ -14,7 +13,6 @@ public class QuoteRequestResponse {
     private String quoteUuid;
     private String statusDescription;
     private QuoteRequestStatusType status;
-    private Long hiredDateTimestamp;
 
 
     public QuoteRequestResponse(QuoteRequest quoteRequest) {
@@ -22,6 +20,5 @@ public class QuoteRequestResponse {
         this.quoteUuid = quoteRequest.getQuoteUuid();
         this.statusDescription = quoteRequest.getStatus().getTranslatedName();
         this.status = quoteRequest.getStatus();
-        this.hiredDateTimestamp = DateUtil.localDateTimeToTimestamp(quoteRequest.getUpdateDate());
     }
 }

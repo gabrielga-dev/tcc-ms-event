@@ -1,5 +1,6 @@
 package br.com.events.event.event.data.model;
 
+import br.com.events.event.event.data.io.outbound.ms_band.message.quote.QuoteAnsweredMessage;
 import br.com.events.event.event.data.model.type.BusinessType;
 import br.com.events.event.event.data.model.type.QuoteRequestStatusType;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -55,6 +57,11 @@ public class QuoteRequest {
     @Column(name = "update_date")
     private LocalDateTime updateDate;
 
+    @Column(name = "price")
+    private BigDecimal price;
+
+    @Column(name = "business_observation")
+    private String businessObservation;
 
     public QuoteRequest(Event event, BusinessType businessType, String businessUuid) {
         this.uuid = UUID.randomUUID().toString();
@@ -67,6 +74,14 @@ public class QuoteRequest {
 
     public void decline() {
         this.status = QuoteRequestStatusType.DECLINED;
+        this.updateDate = LocalDateTime.now();
+    }
+
+    public void update(QuoteAnsweredMessage quoteAnsweredMessage) {
+        this.price = quoteAnsweredMessage.getPrice();
+        this.businessObservation = quoteAnsweredMessage.getObservation();
+        this.quoteUuid = quoteAnsweredMessage.getMsBandQuoteUuid();
+        this.status = QuoteRequestStatusType.ANSWERED;
         this.updateDate = LocalDateTime.now();
     }
 }

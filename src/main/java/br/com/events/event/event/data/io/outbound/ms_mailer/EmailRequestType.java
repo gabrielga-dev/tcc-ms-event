@@ -4,4 +4,5 @@ public enum EmailRequestType {
 
     BAND_QUOTE_REQUEST_DELETED,
     QUOTE_REQUEST_DECLINED,
+    QUOTE_REQUEST_ANSWERED,
 }
