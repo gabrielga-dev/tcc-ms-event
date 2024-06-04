@@ -17,7 +17,7 @@ public class QuoterequestAnsweredSqsListener {
     private final ObjectMapper objectMapper;
     private final QuoteRequestAnsweredUseCase quoteRequestAnsweredUseCase;
 
-    @SqsListener("${cloud.aws.endpoint.uri.quote.request.accepted}")
+    @SqsListener("${cloud.aws.endpoint.uri.quote.request.answered}")
     public void execute(String message) {
         try {
             var object = objectMapper.readValue(message, QuoteAnsweredMessage.class);

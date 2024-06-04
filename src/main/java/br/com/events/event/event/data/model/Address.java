@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -76,5 +77,19 @@ public class Address {
         this.zipCode = form.getZipCode();
         this.latitude = form.getLatitude();
         this.longitude = form.getLongitude();
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "%s %d %s,%s %s - %s (%s)",
+                this.street,
+                this.number,
+                (Objects.isNull(this.complement) ? "" : " " + this.complement),
+                this.neighbour,
+                this.city,
+                this.state,
+                this.zipCode
+        );
     }
 }

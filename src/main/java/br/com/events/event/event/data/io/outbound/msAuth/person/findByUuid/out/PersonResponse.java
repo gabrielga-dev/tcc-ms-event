@@ -1,5 +1,6 @@
 package br.com.events.event.event.data.io.outbound.msAuth.person.findByUuid.out;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,4 +21,9 @@ public class PersonResponse {
     private String lastName;
     private String email;
     private String cpf;
+
+    @JsonIgnore
+    public String getCompleteName(){
+        return firstName + " " + lastName;
+    }
 }

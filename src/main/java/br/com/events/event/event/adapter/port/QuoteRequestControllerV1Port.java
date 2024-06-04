@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Gabriel Guimarães de Almeida
  */
-@Api(tags = "Quote Controller")
+@Api(tags = "Quote Request Controller")
 public interface QuoteRequestControllerV1Port {
 
     @ApiOperation(value = "List all quotes for")

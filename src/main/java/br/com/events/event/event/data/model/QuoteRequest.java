@@ -84,4 +84,13 @@ public class QuoteRequest {
         this.status = QuoteRequestStatusType.ANSWERED;
         this.updateDate = LocalDateTime.now();
     }
+
+    public void decline(boolean hired) {
+        if (hired){
+            this.status = QuoteRequestStatusType.HIRED;
+        } else {
+            this.status = QuoteRequestStatusType.DECLINED;
+        }
+        this.updateDate = LocalDateTime.now();
+    }
 }
