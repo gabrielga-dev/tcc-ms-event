@@ -35,4 +35,8 @@ public class FindEventCommand {
     public List<Event> byUuids(List<String> uuids) {
         return eventRepository.findByUuids(uuids);
     }
+
+    public List<Event> findAll(String ownerUuid) {
+        return eventRepository.findByOwnerUuid(ownerUuid);
+    }
 }

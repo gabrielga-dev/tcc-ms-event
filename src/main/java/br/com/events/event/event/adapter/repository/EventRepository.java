@@ -24,4 +24,6 @@ public interface EventRepository {
     Optional<Event> findById(String uuid);
 
     List<Event> findByUuids(List<String> uuids);
+
+    List<Event> findByOwnerUuid(String ownerUuid);
 }

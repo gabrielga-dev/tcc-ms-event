@@ -2,8 +2,10 @@ package br.com.events.event.event.adapter.port.controller;
 
 import br.com.events.event.event.adapter.port.QuoteControllerV1Port;
 import br.com.events.event.event.business.use_case.quote.AnswerQuoteUseCase;
+import br.com.events.event.event.business.use_case.quote.GenerateDashboardUseCase;
 import br.com.events.event.event.business.use_case.quote.GenerateQuoteContractUseCase;
 import br.com.events.event.event.core.util.FileUtil;
+import br.com.events.event.event.data.io.inbound.dashboard.response.DashboardResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ public class QuoteControllerV1 implements QuoteControllerV1Port {
 
     private final AnswerQuoteUseCase answerQuoteUseCase;
     private final GenerateQuoteContractUseCase generateQuoteContractUseCase;
+    private final GenerateDashboardUseCase generateDashboardUseCase;
 
     @Override
     @PostMapping("/{uuid}/accept")
@@ -45,5 +48,13 @@ public class QuoteControllerV1 implements QuoteControllerV1Port {
     public ResponseEntity<InputStreamResource> generateContract(@PathVariable("uuid") String quoteRequestUuid) {
         var pdf = generateQuoteContractUseCase.execute(quoteRequestUuid);
         return FileUtil.output(pdf.getFileBytes(), pdf.getFileName());
+    }
+
+    @Override
+    @GetMapping("/dashboard")
+    @PreAuthorize("hasAnyAuthority('CONTRACTOR')")
+    public ResponseEntity<DashboardResponse> dashboard() {
+        var dashboard = generateDashboardUseCase.execute();
+        return ResponseEntity.ok(dashboard);
     }
 }

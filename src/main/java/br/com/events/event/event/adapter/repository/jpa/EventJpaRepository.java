@@ -41,4 +41,6 @@ public interface EventJpaRepository extends EventRepository, JpaRepository<Event
 
     @Query("SELECT event FROM Event event WHERE event.uuid IN :uuids")
     List<Event> findByUuids(@Param("uuids") List<String> uuids);
+
+    List<Event> findByOwnerUuid(String ownerUuid);
 }
