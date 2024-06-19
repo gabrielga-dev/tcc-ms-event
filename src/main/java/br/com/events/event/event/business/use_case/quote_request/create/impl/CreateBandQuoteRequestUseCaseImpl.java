@@ -2,13 +2,13 @@ package br.com.events.event.event.business.use_case.quote_request.create.impl;
 
 import br.com.events.event.event.business.command.event.FindEventCommand;
 import br.com.events.event.event.business.command.quote_request.SaveQuoteRequestCommand;
-import br.com.events.event.event.business.command.quote_request.message.SendQuoteRequestMessageCommandFactory;
+import br.com.events.event.event.business.command.quote_request.message.create.SendQuoteRequestMessageCommandFactory;
 import br.com.events.event.event.business.use_case.quote_request.create.CreateQuoteRequestUseCase;
 import br.com.events.event.event.core.exception.event.BusinessTypeNotSupportedYetException;
 import br.com.events.event.event.core.exception.event.EventDoesNotExistsException;
 import br.com.events.event.event.core.exception.event.NotEventOwnerException;
 import br.com.events.event.event.core.util.AuthUtil;
-import br.com.events.event.event.data.io.inbound.quote.request.QuoteRequestRequest;
+import br.com.events.event.event.data.io.inbound.quote.request.create.QuoteRequestRequest;
 import br.com.events.event.event.data.model.QuoteRequest;
 import br.com.events.event.event.data.model.type.BusinessType;
 import lombok.RequiredArgsConstructor;

@@ -4,6 +4,7 @@ import br.com.events.event.event.data.io.outbound.msLocation.city.CityResponse;
 import br.com.events.event.event.data.model.Address;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@NoArgsConstructor
 public class AddressResponse {
 
     private String street;

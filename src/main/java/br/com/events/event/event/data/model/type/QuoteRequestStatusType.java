@@ -8,8 +8,9 @@ import lombok.RequiredArgsConstructor;
 public enum QuoteRequestStatusType {
 
     NON_ANSWERED("Não respondido"),
+    ANSWERED("Respondido"),
     DECLINED("Negado"),
-    ACCEPTED("Aceito");
+    HIRED("Contratado");
 
     private final String translatedName;
 }

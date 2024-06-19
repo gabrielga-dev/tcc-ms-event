@@ -1,8 +1,8 @@
 package br.com.events.event.event.data.io.outbound.ms_band.message.quote_request;
 
-import br.com.events.event.event.data.io.inbound.quote.request.MusicQuoteRequestRequest;
-import br.com.events.event.event.data.io.inbound.quote.request.MusicianTypeQuoteRequestRequest;
-import br.com.events.event.event.data.io.inbound.quote.request.QuoteRequestRequest;
+import br.com.events.event.event.data.io.inbound.quote.request.create.MusicQuoteRequestRequest;
+import br.com.events.event.event.data.io.inbound.quote.request.create.MusicianTypeQuoteRequestRequest;
+import br.com.events.event.event.data.io.inbound.quote.request.create.QuoteRequestRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
