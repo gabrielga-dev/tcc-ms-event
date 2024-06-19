@@ -7,7 +7,6 @@ import br.com.events.event.event.business.command.person.FindPersonCommand;
 import br.com.events.event.event.business.command.quote_request.FindQuoteRequestCommand;
 import br.com.events.event.event.business.use_case.quote.GenerateQuoteContractUseCase;
 import br.com.events.event.event.core.exception.document_template.CouldNotGenerateDocumentException;
-import br.com.events.event.event.core.exception.event.NotEventOwnerException;
 import br.com.events.event.event.core.util.AuthUtil;
 import br.com.events.event.event.core.util.BigDecimalUtil;
 import br.com.events.event.event.core.util.DateUtil;
@@ -37,10 +36,6 @@ public class GenerateQuoteContractUseCaseImpl implements GenerateQuoteContractUs
     @Override
     public PdfDTO execute(String quoteRequestUuid) {
         var quoteRequest = findQuoteRequestCommand.findByUuidOrThrow(quoteRequestUuid);
-
-        if (!Objects.equals(AuthUtil.getAuthenticatedPerson().getUuid(), quoteRequest.getEvent().getOwnerUuid())) {
-            throw new NotEventOwnerException();
-        }
 
         if (Objects.requireNonNull(quoteRequest.getBusinessType()) == BusinessType.BAND) {
             return this.generateForBand(quoteRequest);
