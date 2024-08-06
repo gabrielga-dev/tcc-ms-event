@@ -1,8 +1,8 @@
 package br.com.events.event.event.data.io.outbound.ms_mailer;
 
-import br.com.events.event.event.core.util.AuthUtil;
 import br.com.events.event.event.core.util.BigDecimalUtil;
 import br.com.events.event.event.core.util.DateUtil;
+import br.com.events.event.event.data.io.inbound.auth.AuthenticatedPerson;
 import br.com.events.event.event.data.io.inbound.quote.request.decline.DeclineQuoteRequestRequest;
 import br.com.events.event.event.data.io.outbound.msAuth.person.findByUuid.out.PersonResponse;
 import br.com.events.event.event.data.io.outbound.ms_band.message.quote.QuoteAnsweredMessage;
@@ -31,10 +31,14 @@ public class RawEmailRequest implements Serializable {
         );
     }
 
-    public RawEmailRequest(QuoteRequest quoteRequest, DeclineQuoteRequestRequest declineQuoteRequest) {
+    public RawEmailRequest(
+            QuoteRequest quoteRequest,
+            DeclineQuoteRequestRequest declineQuoteRequest,
+            AuthenticatedPerson person
+    ) {
         this.type = EmailRequestType.QUOTE_REQUEST_DECLINED;
         this.keyAndValues = Map.of(
-                "email", AuthUtil.getAuthenticatedPerson().getEmail(),
+                "email", person.getEmail(),
                 "eventName", quoteRequest.getEvent().getName(),
                 "eventDate", DateUtil.format(quoteRequest.getEvent().getDate()),
                 "businessTypeName", declineQuoteRequest.getBusinessType().getTranslatedSingleName(),
