@@ -85,7 +85,7 @@ public class QuoteRequest {
         this.updateDate = LocalDateTime.now();
     }
 
-    public void decline(boolean hired) {
+    public void setHiredStatus(boolean hired) {
         if (hired){
             this.status = QuoteRequestStatusType.HIRED;
         } else {

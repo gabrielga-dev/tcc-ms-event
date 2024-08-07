@@ -2,11 +2,11 @@ package br.com.events.event.event.business.use_case.event.impl;
 
 import br.com.events.event.event.business.command.event.FindEventCommand;
 import br.com.events.event.event.business.command.event.SaveEventCommand;
+import br.com.events.event.event.business.service.AuthService;
 import br.com.events.event.event.business.use_case.event.CancelEventUseCase;
 import br.com.events.event.event.core.exception.event.EventAlreadyHappenedException;
 import br.com.events.event.event.core.exception.event.EventDoesNotExistsException;
 import br.com.events.event.event.core.exception.event.NotEventOwnerException;
-import br.com.events.event.event.core.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CancelEventUseCaseImpl implements CancelEventUseCase {
 
+    private final AuthService authService;
     private final FindEventCommand findEventCommand;
     private final SaveEventCommand saveEventCommand;
 
@@ -25,7 +26,7 @@ public class CancelEventUseCaseImpl implements CancelEventUseCase {
             throw new EventAlreadyHappenedException();
         }
 
-        if (!AuthUtil.getAuthenticatedPerson().getUuid().equals(event.getOwnerUuid())) {
+        if (!authService.getAuthenticatedPerson().getUuid().equals(event.getOwnerUuid())) {
             throw new NotEventOwnerException();
         }
 

@@ -1,8 +1,9 @@
 package br.com.events.event.event.business.use_case.event.impl;
 
 import br.com.events.event.event.business.command.event.CheckEventCommand;
-import br.com.events.event.event.business.use_case.event.CreateEventUseCase;
 import br.com.events.event.event.business.command.event.SaveEventCommand;
+import br.com.events.event.event.business.service.AuthService;
+import br.com.events.event.event.business.use_case.event.CreateEventUseCase;
 import br.com.events.event.event.data.io.inbound.event.in.EventRequest;
 import br.com.events.event.event.data.io.inbound.event.out.EventResponse;
 import br.com.events.event.event.data.model.Event;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CreateEventUseCaseImpl implements CreateEventUseCase {
 
+    private final AuthService authService;
     private final CheckEventCommand checkEventCommand;
     private final SaveEventCommand saveEventCommand;
 
@@ -26,7 +28,7 @@ public class CreateEventUseCaseImpl implements CreateEventUseCase {
     public EventResponse execute(final EventRequest form) {
         checkEventCommand.execute(form);
 
-        var toSave = new Event(form);
+        var toSave = new Event(form, authService.getAuthenticatedPerson());
 
         var saved = saveEventCommand.execute(toSave);
 

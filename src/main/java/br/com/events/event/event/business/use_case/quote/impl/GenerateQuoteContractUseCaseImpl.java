@@ -5,9 +5,9 @@ import br.com.events.event.event.business.command.document_template.FindDocument
 import br.com.events.event.event.business.command.document_template.GeneratePdfDocumentCommand;
 import br.com.events.event.event.business.command.person.FindPersonCommand;
 import br.com.events.event.event.business.command.quote_request.FindQuoteRequestCommand;
+import br.com.events.event.event.business.service.AuthService;
 import br.com.events.event.event.business.use_case.quote.GenerateQuoteContractUseCase;
 import br.com.events.event.event.core.exception.document_template.CouldNotGenerateDocumentException;
-import br.com.events.event.event.core.util.AuthUtil;
 import br.com.events.event.event.core.util.BigDecimalUtil;
 import br.com.events.event.event.core.util.DateUtil;
 import br.com.events.event.event.core.util.FileUtil;
@@ -27,6 +27,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class GenerateQuoteContractUseCaseImpl implements GenerateQuoteContractUseCase {
 
+    private final AuthService authService;
     private final FindQuoteRequestCommand findQuoteRequestCommand;
     private final FindDocumentTemplateCommand findDocumentTemplateCommand;
     private final FindBandCommand findBandCommand;
@@ -60,7 +61,7 @@ public class GenerateQuoteContractUseCaseImpl implements GenerateQuoteContractUs
         var band = findBandCommand.execute(quoteRequest.getBusinessUuid());
         var event = quoteRequest.getEvent();
         var bandOwner = findPersonCommand.execute(band.getOwnerUuid());
-        var contractor = findPersonCommand.execute(AuthUtil.getAuthenticatedPerson().getUuid());
+        var contractor = findPersonCommand.execute(authService.getAuthenticatedPerson().getUuid());
 
         var params = new HashMap<String, Object>();
 
