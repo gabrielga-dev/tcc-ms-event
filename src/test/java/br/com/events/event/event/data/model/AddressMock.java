@@ -1,0 +1,14 @@
+package br.com.events.event.event.data.model;
+
+
+import br.com.events.event.event.data.io.address.request.AddressRequestMock;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class AddressMock {
+
+    public static Address build() {
+        return new Address(AddressRequestMock.build());
+    }
+}

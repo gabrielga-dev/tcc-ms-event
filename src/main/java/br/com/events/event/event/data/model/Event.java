@@ -5,7 +5,6 @@ import br.com.events.event.event.data.io.inbound.event.in.EventRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -62,14 +61,13 @@ public class Event {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "event", cascade = CascadeType.ALL)
     private List<QuoteRequest> quotes;
 
-    public Event(EventRequest form) {
+    public Event(EventRequest form, AuthenticatedPerson authenticated) {
         this.uuid = UUID.randomUUID().toString();
         this.name = form.getName();
         this.description = form.getDescription();
         this.date = form.getDate();
         this.creationDate = LocalDateTime.now();
 
-        var authenticated = (AuthenticatedPerson) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         this.ownerUuid = authenticated.getUuid();
 
         this.address = new Address(form.getAddress());

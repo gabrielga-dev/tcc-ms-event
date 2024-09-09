@@ -2,10 +2,10 @@ package br.com.events.event.event.business.use_case.quote_request.impl;
 
 import br.com.events.event.event.business.command.event.FindEventCommand;
 import br.com.events.event.event.business.command.quote_request.FindQuoteRequestCommand;
+import br.com.events.event.event.business.service.AuthService;
 import br.com.events.event.event.business.use_case.quote_request.FindAllQuoteRequestUseCase;
 import br.com.events.event.event.core.exception.event.EventDoesNotExistsException;
 import br.com.events.event.event.core.exception.event.NotEventOwnerException;
-import br.com.events.event.event.core.util.AuthUtil;
 import br.com.events.event.event.data.io.inbound.quote.response.QuoteRequestTypeResponse;
 import br.com.events.event.event.data.model.QuoteRequest;
 import br.com.events.event.event.data.model.type.BusinessType;
@@ -22,13 +22,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FindAllQuoteRequestUseCaseImpl implements FindAllQuoteRequestUseCase {
 
+    private final AuthService authService;
     private final FindEventCommand findEventCommand;
     private final FindQuoteRequestCommand findQuoteRequestCommand;
 
     @Override
     public List<QuoteRequestTypeResponse> execute(String eventUuid) {
         var event = findEventCommand.byUuid(eventUuid).orElseThrow(EventDoesNotExistsException::new);
-        if (!AuthUtil.getAuthenticatedPerson().getUuid().equals(event.getOwnerUuid())) {
+        if (!authService.getAuthenticatedPerson().getUuid().equals(event.getOwnerUuid())) {
             throw new NotEventOwnerException();
         }
         var unsortedRequestResponse = findQuoteRequestCommand.findAll(eventUuid);
