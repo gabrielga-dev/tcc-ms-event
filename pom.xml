@@ -25,11 +25,11 @@
         <sonar.tests>${project.basedir}/src/test/</sonar.tests>
         <sonar.language>java</sonar.language>
         <sonar.coverage.exclusions>
-            **/src/main/java/br/com/events/event/adapter/**,
-            **/src/main/java/br/com/events/event/business/service/**,
-            **/src/main/java/br/com/events/event/core/config/**,
-            **/src/main/java/br/com/events/event/core/exception/**,
-            **/src/main/java/br/com/events/event/data/**
+            **/src/main/java/br/com/events/event/event/adapter/**,
+            **/src/main/java/br/com/events/event/event/business/service/**,
+            **/src/main/java/br/com/events/event/event/core/**,
+            **/src/main/java/br/com/events/event/event/EventApplication.java,
+            **/src/main/java/br/com/events/event/event/data/**
         </sonar.coverage.exclusions>
         <sonar.issue.ignore.multicriteria>e1,e2,e3</sonar.issue.ignore.multicriteria>
         <sonar.issue.ignore.multicriteria.e1.ruleKey>java:S110</sonar.issue.ignore.multicriteria.e1.ruleKey>
